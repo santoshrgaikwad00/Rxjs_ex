@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild  } from '@angular/core';
 import { fromEvent } from 'rxjs';
+import { DesignUtilityService } from '../../appServices/design-utility.service';
 
 @Component({
   selector: 'app-from-event',
@@ -10,24 +11,18 @@ export class FromEventComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('addBtn') addBtn : ElementRef;
 
-	constructor() { }
+	constructor(private designUtility : DesignUtilityService) { }
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {	}
 
 	ngAfterViewInit(){
 		let count = 1;
 		fromEvent(this.addBtn.nativeElement, 'click').subscribe(res => {
 			let val = "SanTa "+count++ 
-			this.print( 'elContainer', val );
-			this.print( 'elContainer2', val )
+			this.designUtility.print( 'elContainer', val );
+			this.designUtility.print( 'elContainer2', val );
 		});
 	}
 
-	print(containerid, count){
-		let el = document.createElement('li');
-		el.innerText = count;
-
-		document.getElementById(containerid).appendChild(el);
-	}
+	
 }
